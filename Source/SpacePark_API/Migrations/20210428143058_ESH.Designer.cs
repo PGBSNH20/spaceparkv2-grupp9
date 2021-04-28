@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SpacePark_API;
+using SpacePark_API.Models;
 
 namespace SpacePark_API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210428131925_test")]
-    partial class test
+    [Migration("20210428143058_ESH")]
+    partial class ESH
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace SpacePark_API.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Park", b =>
+            modelBuilder.Entity("SpacePark_API.Models.Parking", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace SpacePark_API.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Park");
+                    b.ToTable("Parking");
                 });
 #pragma warning restore 612, 618
         }
