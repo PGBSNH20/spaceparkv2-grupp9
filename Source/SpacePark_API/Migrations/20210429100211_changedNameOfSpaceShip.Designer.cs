@@ -10,8 +10,8 @@ using SpacePark_API.Models;
 namespace SpacePark_API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210429075640_FirstMigraion")]
-    partial class FirstMigraion
+    [Migration("20210429100211_changedNameOfSpaceShip")]
+    partial class changedNameOfSpaceShip
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace SpacePark_API.Migrations
                     b.Property<string>("PersonName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SpaceShip")
+                    b.Property<string>("StarShip")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -84,7 +84,7 @@ namespace SpacePark_API.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<string>("SpaceShip")
+                    b.Property<string>("StarShip")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

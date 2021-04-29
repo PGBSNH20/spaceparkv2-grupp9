@@ -6,8 +6,8 @@ POST https://localhost:5001/api/Parking
 content-type: application/json
 
 {
-    "PersonName": "Han solo",
-    "SpaceShip": "Death star",
+    "PersonName": "Boba Fett",
+    "SpaceShip": "Star Destroyer",
     "arrivalTime": "2021-04-29T13:37:00",
     "payed": false
 }

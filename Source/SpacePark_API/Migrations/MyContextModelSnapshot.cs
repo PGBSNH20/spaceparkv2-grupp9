@@ -35,7 +35,7 @@ namespace SpacePark_API.Migrations
                     b.Property<string>("PersonName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SpaceShip")
+                    b.Property<string>("StarShip")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -82,7 +82,7 @@ namespace SpacePark_API.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<string>("SpaceShip")
+                    b.Property<string>("StarShip")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -77,14 +79,25 @@ namespace SpacePark_API.Controllers
         // POST: api/Parking
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Parking>> PostParking(Parking parking)
         {
-            // var park = new Parking { PersonName = "Han solo", SpaceShip = "death star", ArrivalTime = DateTime.Now };
+            if (DBMethods.EmptySpaces())
+            {
+                var acceptableName = await ParkingValidation.ValidateName(parking.PersonName);
+                var acceptableStarShip = await ParkingValidation.ValidateStarShip(parking.StarShip);
 
-            _context.Parking.Add(parking);
-            await _context.SaveChangesAsync();
+                if (acceptableName && acceptableStarShip)
+                {
+                    _context.Parking.Add(parking);
+                    await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetParking", new { id = parking.ID }, parking);
+                    return CreatedAtAction("GetParking", new { id = parking.ID }, parking);
+                }
+                return BadRequest("You are either not a Star Wars character or have the wrong ship, please leave.");
+            }
+
+            return BadRequest("SpacePort is full.");
         }
 
         // DELETE: api/Parking/5

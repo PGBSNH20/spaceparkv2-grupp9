@@ -9,11 +9,11 @@ namespace SpacePark_API
 {
     public static class DBMethods
     {
-        public static void AddParking(string name, string spaceShip )
+        public static void AddParking(string name, string StarShip )
         {
             using (var db = new MyContext())
             {
-                var park = new Parking{PersonName = name, SpaceShip = spaceShip, ArrivalTime =  DateTime.Now};
+                var park = new Parking{PersonName = name, StarShip = StarShip, ArrivalTime =  DateTime.Now};
 
                 db.Parking.Add(park);
                 db.SaveChanges();
@@ -88,12 +88,12 @@ namespace SpacePark_API
                     {
                         ID = pay.ID,
                         PersonName = Parking.PersonName,
-                        SpaceShip = Parking.SpaceShip
+                        StarShip = Parking.StarShip
                     }).FirstOrDefault();
                     
                 double totalPrice = Math.Round(timeParkinged.TotalHours * 100, 2);
 
-                var receipt = new Receipt { PayID = query.ID, PersonName = query.PersonName, SpaceShip = query.SpaceShip, Price = totalPrice};
+                var receipt = new Receipt { PayID = query.ID, PersonName = query.PersonName,  StarShip = query.StarShip, Price = totalPrice};
                 db.Receipts.Add(receipt);
                 db.SaveChanges();
             }
