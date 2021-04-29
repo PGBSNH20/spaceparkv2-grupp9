@@ -55,10 +55,13 @@ namespace SpacePark_API.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(parking).State = EntityState.Modified;
-
             try
             {
+                _context.Parking
+                .Where(p => p.ID == id)
+                .FirstOrDefault()
+                .Payed = true;
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -79,7 +82,6 @@ namespace SpacePark_API.Controllers
         // POST: api/Parking
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Parking>> PostParking(Parking parking)
         {
             if (DBMethods.EmptySpaces())

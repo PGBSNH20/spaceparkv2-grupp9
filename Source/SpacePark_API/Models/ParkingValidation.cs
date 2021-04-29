@@ -44,13 +44,13 @@ namespace SpacePark_API.Models
             starshipResponse.Next = "INTE NULL";
 
             int i = 2;
-            double result;
+            //double result;
             while (starshipResponse.Next != null)
             {
                 foreach (var s in starshipResponse.Results)
                 {
                     //bool test = Double.TryParse(s.Length, out result);
-                    if (/*test && result < 500.00 &&*/  starShip == s.Name)
+                    if (/*test && result < 500.00 &&*/  starShip.ToLower() == s.Name.ToLower())
                     {
                         return true;
                     }

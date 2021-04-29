@@ -1,4 +1,4 @@
-GET https://localhost:5001/api/Parking
+GET https://localhost:5001/api/Parking/1
 
 ###
 
@@ -7,7 +7,17 @@ content-type: application/json
 
 {
     "PersonName": "Boba Fett",
-    "SpaceShip": "Star Destroyer",
+    "StarShip": "Star Destroyer",
     "arrivalTime": "2021-04-29T13:37:00",
     "payed": false
+}
+
+###
+
+PUT https://localhost:5001/api/Parking/1
+content-type: application/json
+
+{
+    "id": 1,
+    "PersonName": "Ja hej hej"
 }
