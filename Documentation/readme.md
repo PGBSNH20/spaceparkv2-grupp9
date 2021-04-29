@@ -15,9 +15,13 @@ Här får man alla som är parkerade
 GET
 Här får man info om en specefik parkering
 
-/parking/id/all
+/parking/name/all
 GET
 Här får man ut information om alla sina parkeringar
+
+/parking/name/current
+GET
+Här får man ut information om sin pågående parkering om man har någon
 
 ## Betala för parkering
 /parking/pay
