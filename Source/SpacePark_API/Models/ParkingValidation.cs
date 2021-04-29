@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.Tasks;
 using RestSharp;
-using SpacePark_API.Models;
 
 namespace SpacePark_API.Models
 {
@@ -62,5 +61,18 @@ namespace SpacePark_API.Models
             return false;
         }
 
+        public static string GetWhiteSpaceName(string name)
+        {
+            string nameWithSpace = name;
+            if (name.Contains("_"))
+            {
+                nameWithSpace = name.Replace("_", " ");
+            }
+            if (name.Contains("-"))
+            {
+                nameWithSpace = name.Replace("-", " ");
+            }
+            return nameWithSpace;
+        }
     }
 }

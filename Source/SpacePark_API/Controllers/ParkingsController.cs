@@ -26,9 +26,9 @@ namespace SpacePark_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Parking>>> GetParking()
         {
-            //return await _context.Parking.ToListAsync();
+            return await _context.Parking.ToListAsync();
 
-            return await _context.Parking.Where(p => p.Payed == false).ToListAsync();
+            //return await _context.Parking.Where(p => p.Paid == false).ToListAsync();
         }
 
         // GET: api/Parking/5
@@ -45,6 +45,29 @@ namespace SpacePark_API.Controllers
             return parking;
         }
 
+        // GET: api/Parking/boba fett/current
+        [HttpGet("{name}/current")]
+        public async Task<ActionResult<Parking>> GetCurrentParking(string name)
+        {
+            string nameWithSpace = ParkingValidation.GetWhiteSpaceName(name);
+            var parking = await _context.Parking.Where(p => p.PersonName == nameWithSpace && p.Paid == false).FirstOrDefaultAsync();
+
+            if (parking == null)
+            {
+                return NotFound("You have no current parking");
+            }
+
+            return parking;
+        }
+
+        // GET: api/boba fett/all
+        [HttpGet("{name}/all")]
+        public async Task<ActionResult<IEnumerable<Parking>>> GetAllParkingForCharacter(string name)
+        {
+            string nameWithSpace = ParkingValidation.GetWhiteSpaceName(name);
+            return await _context.Parking.Where(p => p.PersonName == nameWithSpace).ToListAsync();
+        }
+
         // PUT: api/Parking/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -55,12 +78,17 @@ namespace SpacePark_API.Controllers
                 return BadRequest();
             }
 
+            if (DBMethods.AlreadyPaid(parking.ID))
+            {
+                return BadRequest("You have already paid");
+            }
+
             try
             {
                 _context.Parking
                 .Where(p => p.ID == id)
                 .FirstOrDefault()
-                .Payed = true;
+                .Paid = true;
 
                 await _context.SaveChangesAsync();
             }
@@ -81,7 +109,7 @@ namespace SpacePark_API.Controllers
 
         // POST: api/Parking
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<ActionResult<Parking>> PostParking(Parking parking)
         {
             if (DBMethods.EmptySpaces())

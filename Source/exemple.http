@@ -1,12 +1,12 @@
-GET https://localhost:5001/api/Parking/1
+GET https://localhost:5001/api/Parking
 
 ###
 
-POST https://localhost:5001/api/Parking
+POST https://localhost:5001/api/Parking/register
 content-type: application/json
 
 {
-    "PersonName": "Boba Fett",
+    "PersonName": "Luke Skywalker",
     "StarShip": "Star Destroyer",
     "arrivalTime": "2021-04-29T13:37:00",
     "payed": false

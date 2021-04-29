@@ -31,7 +31,7 @@ namespace SpacePark_API
                     var query = db.Parking
                         .Where(p => p.PersonName == name)
                         .OrderByDescending(p => p.ID)
-                        .Select(p => p.Payed).First();
+                        .Select(p => p.Paid).First();
 
                     if (query)
                     {
@@ -63,7 +63,7 @@ namespace SpacePark_API
                 {
                     var pay = new Pay { DepartTime = departTime, ParkID = query.ID };
                     db.Pay.Add(pay);
-                    query.Payed = true;
+                    query.Paid = true;
                     db.SaveChanges();
                     ShowReceipt(name, timeParkinged);
                 }
@@ -106,7 +106,7 @@ namespace SpacePark_API
             using (var db = new MyContext())
             {
                 var query = db.Parking
-                    .Where(p => p.Payed == false)
+                    .Where(p => p.Paid == false)
                     .Count();
 
                 if (query < 10)
@@ -119,24 +119,15 @@ namespace SpacePark_API
                 }
             }
         }
-        public static void AlreadyPaid(string name)
+        public static bool AlreadyPaid(int id)
         {
-            using (var db = new MyContext())
-            {
-                var query = db.Parking
-                    .Where(p => p.PersonName == name)
-                    .OrderByDescending(p => p.ID)
-                    .Select(p => p.Payed).FirstOrDefault();
-                    
-                if (query)
-                {
+            using var db = new MyContext();
 
-                }
-                else
-                {
-                    PayForParkinging(name);
-                }
-            }
+            var payed = db.Parking
+                .Where(p => p.ID == id)
+                .Select(p => p.Paid).FirstOrDefault();
+
+            return payed;
         }
     }
 }

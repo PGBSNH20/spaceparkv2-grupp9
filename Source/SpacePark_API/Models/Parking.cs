@@ -13,7 +13,7 @@ namespace SpacePark_API.Models
         public string PersonName { get; set; }
         public string StarShip { get; set; }
         public DateTime ArrivalTime { get; set; }
-        public bool Payed { get; set; }
+        public bool Paid { get; set; }
     }
 
 }
