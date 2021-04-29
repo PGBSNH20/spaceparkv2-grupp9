@@ -1,20 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using SpacePark_API.Models;
 
 namespace SpacePark_API.Models
 {
-    public class Parking
+    public class Receipt
     {
         public int ID { get; set; }
+        public int PayID { get; set; }
         public string PersonName { get; set; }
         public string SpaceShip { get; set; }
-        public DateTime ArrivalTime { get; set; }
-        public bool Payed { get; set; }
+        public Double Price { get; set; }
     }
-
-    
 }

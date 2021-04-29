@@ -20,7 +20,7 @@ namespace SpacePark_API.Controllers
             _context = context;
         }
 
-        // GET: api/Parking/info
+        // GET: api/Parking
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Parking>>> GetParking()
         {
@@ -79,6 +79,8 @@ namespace SpacePark_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Parking>> PostParking(Parking parking)
         {
+            // var park = new Parking { PersonName = "Han solo", SpaceShip = "death star", ArrivalTime = DateTime.Now };
+
             _context.Parking.Add(parking);
             await _context.SaveChangesAsync();
 
