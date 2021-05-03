@@ -12,6 +12,7 @@ namespace SpacePark_API.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public int TotalCapacity { get; set; }
+        public ICollection<Parking> Parking { get; set; }
     }
 
 }

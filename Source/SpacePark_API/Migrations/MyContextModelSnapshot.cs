@@ -116,7 +116,7 @@ namespace SpacePark_API.Migrations
             modelBuilder.Entity("SpacePark_API.Models.Parking", b =>
                 {
                     b.HasOne("SpacePark_API.Models.SpacePort", "SpacePort")
-                        .WithMany()
+                        .WithMany("Parking")
                         .HasForeignKey("SpacePortID");
 
                     b.Navigation("SpacePort");
@@ -131,6 +131,11 @@ namespace SpacePark_API.Migrations
                         .IsRequired();
 
                     b.Navigation("Park");
+                });
+
+            modelBuilder.Entity("SpacePark_API.Models.SpacePort", b =>
+                {
+                    b.Navigation("Parking");
                 });
 #pragma warning restore 612, 618
         }

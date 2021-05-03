@@ -10,8 +10,8 @@ using SpacePark_API.Models;
 namespace SpacePark_API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210429121149_ChangedNameToPaied")]
-    partial class ChangedNameToPaied
+    [Migration("20210503123845_addedSpacePort")]
+    partial class addedSpacePort
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,10 +37,15 @@ namespace SpacePark_API.Migrations
                     b.Property<string>("PersonName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SpacePortID")
+                        .HasColumnType("int");
+
                     b.Property<string>("StarShip")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("SpacePortID");
 
                     b.ToTable("Parking");
                 });
@@ -92,6 +97,33 @@ namespace SpacePark_API.Migrations
                     b.ToTable("Receipts");
                 });
 
+            modelBuilder.Entity("SpacePark_API.Models.SpacePort", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TotalCapacity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("SpacePorts");
+                });
+
+            modelBuilder.Entity("SpacePark_API.Models.Parking", b =>
+                {
+                    b.HasOne("SpacePark_API.Models.SpacePort", "SpacePort")
+                        .WithMany("Parking")
+                        .HasForeignKey("SpacePortID");
+
+                    b.Navigation("SpacePort");
+                });
+
             modelBuilder.Entity("SpacePark_API.Models.Pay", b =>
                 {
                     b.HasOne("SpacePark_API.Models.Parking", "Park")
@@ -101,6 +133,11 @@ namespace SpacePark_API.Migrations
                         .IsRequired();
 
                     b.Navigation("Park");
+                });
+
+            modelBuilder.Entity("SpacePark_API.Models.SpacePort", b =>
+                {
+                    b.Navigation("Parking");
                 });
 #pragma warning restore 612, 618
         }

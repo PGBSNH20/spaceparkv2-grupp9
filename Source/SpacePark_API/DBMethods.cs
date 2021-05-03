@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using SpacePark_API.Models;
+using System.Collections.Generic;
 
 namespace SpacePark_API
 {
@@ -101,15 +102,17 @@ namespace SpacePark_API
             
         }
 
-        public static bool EmptySpaces()
+        public static bool EmptySpaces(SpacePort spacePort)
         {
             using (var db = new MyContext())
             {
                 var query = db.Parking
-                    .Where(p => p.Paid == false)
+                    .Where(p => p.Paid == false && p.SpacePort.ID == spacePort.ID)
                     .Count();
 
-                if (query < 10)
+                //var spacePort = db.SpacePorts.Find(id);
+
+                if (query < spacePort.TotalCapacity)
                 {
                     return true;
                 }

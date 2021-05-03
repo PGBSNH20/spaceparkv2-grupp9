@@ -118,7 +118,7 @@ namespace SpacePark_API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<Parking>> PostParking(Parking parking)
         {
-            if (DBMethods.EmptySpaces())
+            if (DBMethods.EmptySpaces(parking.SpacePort))
             {
                 var acceptableName = await ParkingValidation.ValidateName(parking.PersonName);
                 var acceptableStarShip = await ParkingValidation.ValidateStarShip(parking.StarShip);
