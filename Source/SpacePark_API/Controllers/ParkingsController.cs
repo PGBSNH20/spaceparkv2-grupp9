@@ -85,10 +85,16 @@ namespace SpacePark_API.Controllers
 
             try
             {
-                _context.Parking
+                var currentParking = _context.Parking
                 .Where(p => p.ID == id)
-                .FirstOrDefault()
-                .Paid = true;
+                .FirstOrDefault();
+                currentParking.Paid = true;
+
+                TimeSpan timedPark = DateTime.Now - currentParking.ArrivalTime;
+                var totalPrice = Math.Round(timedPark.TotalHours * 100, 2);
+
+                var receipt = new Receipt { PayID = currentParking.ID, PersonName = currentParking.PersonName, StarShip = currentParking.StarShip, Price = totalPrice };
+                _context.Receipts.Add(receipt);
 
                 await _context.SaveChangesAsync();
             }

@@ -6,7 +6,7 @@ POST https://localhost:5001/api/Parking/register
 content-type: application/json
 
 {
-    "PersonName": "Luke Skywalker",
+    "PersonName": "Boba Fett",
     "StarShip": "Star Destroyer",
     "arrivalTime": "2021-04-29T13:37:00",
     "payed": false
