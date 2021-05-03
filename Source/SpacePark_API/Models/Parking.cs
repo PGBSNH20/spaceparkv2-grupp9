@@ -14,6 +14,7 @@ namespace SpacePark_API.Models
         public string StarShip { get; set; }
         public DateTime ArrivalTime { get; set; }
         public bool Paid { get; set; }
+        public SpacePort SpacePort { get; set; }
     }
 
 }

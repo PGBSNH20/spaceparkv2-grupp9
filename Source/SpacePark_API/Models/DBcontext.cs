@@ -12,6 +12,7 @@ namespace SpacePark_API.Models
         public DbSet<Parking> Parking { get; set; }
         public DbSet<Pay> Pay { get; set; }
         public DbSet<Receipt> Receipts {get; set;}
+        public DbSet<SpacePort> SpacePorts { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=localhost,41433; Database=SpacePortDB; User ID=SA; Password=verystrong!pass123");
