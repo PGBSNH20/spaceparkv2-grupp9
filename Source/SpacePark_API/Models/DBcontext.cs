@@ -17,5 +17,11 @@ namespace SpacePark_API.Models
         {
             optionsBuilder.UseSqlServer(@"Data Source=localhost,41433; Database=SpacePortDB; User ID=SA; Password=verystrong!pass123");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Parking>().HasKey(x => x.ID);
+            modelBuilder.Entity<SpacePort>().HasKey(x => x.ID);
+        }
     }
 }

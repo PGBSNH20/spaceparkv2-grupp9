@@ -6,18 +6,28 @@ POST https://localhost:5001/api/Parking/register
 content-type: application/json
 
 {
-    "PersonName": "Boba Fett",
-    "StarShip": "Star Destroyer",
-    "arrivalTime": "2021-04-29T13:37:00",
-    "payed": false
+    "PersonName": "boba fett",
+    "StarShip": "millennium falcon",
+    "arrivalTime": "2021-03-29T13:37:00",
+    "SpacePortID": 3
 }
 
 ###
 
-PUT https://localhost:5001/api/Parking/1
+PUT https://localhost:5001/api/Parking/8
 content-type: application/json
 
 {
-    "id": 1,
+    "id": 8,
     "PersonName": "Ja hej hej"
 }
+
+###
+
+POST https://localhost:5001/api/SpacePorts
+content-type: application/json
+
+    {
+        "Name": "ESH spaceport",
+        "TotalCapacity": 10
+    }

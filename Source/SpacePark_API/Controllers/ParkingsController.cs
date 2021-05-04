@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpacePark_API.Models;
+using SpacePark_API.Models.APIModels;
+
 
 namespace SpacePark_API.Controllers
 {
@@ -116,19 +118,21 @@ namespace SpacePark_API.Controllers
         // POST: api/Parking
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("register")]
-        public async Task<ActionResult<Parking>> PostParking(Parking parking)
+        public async Task<ActionResult<Parking>> PostParking(ParkingRequest parkingRequest)
         {
-            if (DBMethods.EmptySpaces(parking.SpacePort))
+            if (DBMethods.EmptySpaces(parkingRequest.SpacePortID))
             {
-                var acceptableName = await ParkingValidation.ValidateName(parking.PersonName);
-                var acceptableStarShip = await ParkingValidation.ValidateStarShip(parking.StarShip);
+                var acceptableName = await ParkingValidation.ValidateName(parkingRequest.PersonName);
+                var acceptableStarShip = await ParkingValidation.ValidateStarShip(parkingRequest.StarShip);
 
                 if (acceptableName && acceptableStarShip)
                 {
-                    _context.Parking.Add(parking);
+                    var spacePort = _context.SpacePorts.Find(parkingRequest.SpacePortID);
+                    Parking newParking = new() { PersonName = parkingRequest.PersonName, StarShip = parkingRequest.StarShip, ArrivalTime = parkingRequest.ArrivalTime, SpacePort = spacePort };
+                    _context.Parking.Add(newParking);
                     await _context.SaveChangesAsync();
 
-                    return CreatedAtAction("GetParking", new { id = parking.ID }, parking);
+                    return CreatedAtAction("GetParking", new { id = newParking.ID }, newParking);
                 }
                 return BadRequest("You are either not a Star Wars character or have the wrong ship, please leave.");
             }

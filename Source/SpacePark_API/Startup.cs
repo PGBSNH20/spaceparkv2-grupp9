@@ -30,10 +30,10 @@ namespace SpacePark_API
         {
             services.AddDbContext<MyContext>();
             services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "SpacePark_API", Version = "v1" });
-            //});
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,9 +41,6 @@ namespace SpacePark_API
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SpacePark_API v1"));
                 app.UseDeveloperExceptionPage();
             }
 
