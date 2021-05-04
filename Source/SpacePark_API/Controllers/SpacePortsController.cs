@@ -27,20 +27,6 @@ namespace SpacePark_API.Controllers
             return await _context.SpacePorts.ToListAsync();
         }
 
-        // GET: api/SpacePorts/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<SpacePort>> GetSpacePort(int id)
-        {
-            var spacePort = await _context.SpacePorts.FindAsync(id);
-
-            if (spacePort == null)
-            {
-                return NotFound();
-            }
-
-            return spacePort;
-        }
-
         // PUT: api/SpacePorts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -72,9 +58,9 @@ namespace SpacePark_API.Controllers
             return NoContent();
         }
 
-        // POST: api/SpacePorts
+        // POST: api/SpacePorts/new
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("new")]
         public async Task<ActionResult<SpacePort>> PostSpacePort(SpacePort spacePort)
         {
             _context.SpacePorts.Add(spacePort);
@@ -90,7 +76,7 @@ namespace SpacePark_API.Controllers
             var spacePort = await _context.SpacePorts.FindAsync(id);
             if (spacePort == null)
             {
-                return NotFound();
+                return NotFound("Are you soure you have the right id or because the cops maby already have found this spaceport");
             }
 
             _context.SpacePorts.Remove(spacePort);

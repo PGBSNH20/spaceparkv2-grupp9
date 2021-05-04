@@ -140,22 +140,6 @@ namespace SpacePark_API.Controllers
             return BadRequest("SpacePort is full.");
         }
 
-        // DELETE: api/Parking/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteParking(int id)
-        {
-            var parking = await _context.Parking.FindAsync(id);
-            if (parking == null)
-            {
-                return NotFound();
-            }
-
-            _context.Parking.Remove(parking);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
         private bool ParkingExists(int id)
         {
             return _context.Parking.Any(e => e.ID == id);
