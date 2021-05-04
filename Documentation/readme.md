@@ -1,6 +1,6 @@
 # Documentation
 
-```/api``` bas endoint för apit
+```/api``` bas url för apit
 
 ## Parkera
 ```/parking/register```
