@@ -1,36 +1,37 @@
 # Documentation
 
+```/api``` bas url för apit
 
 ## Parkera
-/parking/register
+```/parking/register```
 POST
 Här postar man en request
 
 ## Hämta parkerings information
-/parking/info
+```/parking/info```
 GET
 Här får man alla som är parkerade
 
-/parking/id
+```/parking/id```
 GET
 Här får man info om en specefik parkering
 
-/parking/name/all
+```/parking/name/all```
 GET
 Här får man ut information om alla sina parkeringar
 
-/parking/name/current
+```/parking/name/current```
 GET
 Här får man ut information om sin pågående parkering om man har någon
 
 ## Betala för parkering
-/parking/pay
+```/parking/pay```
 PUT
 Uppdaterar databasen så att man har betalat för parkeringen
 
 
 ## Administratör saker
-/newspaceport
+```/spaceports/new```
 POST
 EN admin kan lägga till en ny spaceport i systemet
 
