@@ -6,7 +6,7 @@ POST https://localhost:5001/api/Parking/register
 content-type: application/json
 
 {
-    "PersonName": "boba fett",
+    "PersonName": "Watto",
     "StarShip": "millennium falcon",
     "arrivalTime": "2021-03-29T13:37:00",
     "SpacePortID": 3
@@ -18,8 +18,7 @@ PUT https://localhost:5001/api/Parking/8
 content-type: application/json
 
 {
-    "id": 8,
-    "PersonName": "Ja hej hej"
+    "id": 8
 }
 
 ###
