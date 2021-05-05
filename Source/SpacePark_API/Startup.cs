@@ -50,6 +50,7 @@ namespace SpacePark_API
 
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -1,8 +1,10 @@
 GET https://localhost:5001/api/Parking
+apikey: secret1234
 
 ###
 
 POST https://localhost:5001/api/Parking/register
+apikey: secret1234
 content-type: application/json
 
 {
@@ -15,6 +17,7 @@ content-type: application/json
 ###
 
 PUT https://localhost:5001/api/Parking/8
+apikey: secret1234
 content-type: application/json
 
 {
@@ -24,6 +27,7 @@ content-type: application/json
 ###
 
 POST https://localhost:5001/api/SpacePorts
+apikey: secret1234
 content-type: application/json
 
     {

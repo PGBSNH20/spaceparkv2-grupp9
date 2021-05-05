@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SpacePark_API.Attribues;
 using SpacePark_API.Models;
 using SpacePark_API.Models.APIModels;
 
@@ -15,6 +16,7 @@ namespace SpacePark_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class ParkingController : ControllerBase
     {
         private readonly MyContext _context;
