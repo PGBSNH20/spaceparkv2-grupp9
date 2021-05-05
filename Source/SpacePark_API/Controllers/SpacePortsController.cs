@@ -13,7 +13,7 @@ namespace SpacePark_API.Controllers
     [ApiController]
     public class SpacePortsController : ControllerBase
     {
-        private readonly MyContext _context;
+        public readonly MyContext _context;
 
         public SpacePortsController(MyContext context)
         {

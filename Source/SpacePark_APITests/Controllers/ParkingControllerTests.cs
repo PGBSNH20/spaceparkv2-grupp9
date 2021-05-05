@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SpacePark_API.Controllers;
+﻿using SpacePark_API.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,31 +6,33 @@ using System.Text;
 using System.Threading.Tasks;
 using RestSharp;
 using SpacePark_API.Models.APIModels;
-
+using SpacePark_API.Models;
+using Xunit;
+using Microsoft.AspNetCore.Mvc.Testing;
+using System.Net.Http;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace SpacePark_API.Controllers.Tests
 {
-    public class ParkingControllerTests
+    public class ParkingControllerTests: IClassFixture<WebApplicationFactory<Startup>>
     {
-        [TestMethod()]
-        public void PostParkingTest()
+        readonly HttpClient _client;
+      
+        public ParkingControllerTests(WebApplicationFactory<Startup> fixture)
         {
-            var client = new RestClient("https://localhost:5001/api/");
-            var request = new RestRequest("parking/register", DataFormat.Json);
-
-            var parking = new ParkingRequest { ArrivalTime = DateTime.Now, PersonName = "Boba Fett", SpacePortID = 1, StarShip = "millennium falcon" };
-
-
-            client.Execute(request);
-
-            Assert.Fail();
+            _client = fixture.CreateClient();
         }
 
-        [TestMethod()]
-        public void GetId()
+        [Fact]
+        public async Task GetParking()
         {
-            
+            var response = await _client.GetAsync("/Parking");
+            response.StatusCode.Equals(HttpStatusCode.OK);
 
+            var test = JsonConvert.DeserializeObject<Parking[]>(await response.Content.ReadAsStringAsync());
+            Assert.Equal(16, test.Count());
+            
         }
     }
 }
