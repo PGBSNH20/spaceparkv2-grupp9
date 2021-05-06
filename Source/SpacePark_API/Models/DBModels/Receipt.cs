@@ -14,5 +14,6 @@ namespace SpacePark_API.Models
         public string PersonName { get; set; }
         public string StarShip { get; set; }
         public Double Price { get; set; }
+        public SpacePort Spaceport { get; set; }
     }
 }

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpacePark_API.Attribues;
@@ -31,8 +28,6 @@ namespace SpacePark_API.Controllers
         public async Task<ActionResult<IEnumerable<Parking>>> GetParking()
         {
             return await _context.Parking.ToListAsync();
-
-            //return await _context.Parking.Where(p => p.Paid == false).ToListAsync();
         }
 
         // GET: api/Parking/5
@@ -75,14 +70,14 @@ namespace SpacePark_API.Controllers
         // PUT: api/Parking/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutParking(int id, Parking parking)
+        public async Task<IActionResult> PutParking(int id, PayParkingRequest payParking)
         {
-            if (id != parking.ID)
+            if (id != payParking.ID)
             {
                 return BadRequest();
             }
 
-            if (DBMethods.AlreadyPaid(parking.ID))
+            if (DBMethods.AlreadyPaid(payParking.ID, _context))
             {
                 return BadRequest("You have already paid");
             }
@@ -97,7 +92,9 @@ namespace SpacePark_API.Controllers
                 TimeSpan timedPark = DateTime.Now - currentParking.ArrivalTime;
                 var totalPrice = Math.Round(timedPark.TotalHours * 100, 2);
 
-                var receipt = new Receipt { PayID = currentParking.ID, PersonName = currentParking.PersonName, StarShip = currentParking.StarShip, Price = totalPrice };
+                var spaceport = await _context.SpacePorts.FindAsync(payParking.SpacePortID);
+
+                var receipt = new Receipt { PayID = currentParking.ID, PersonName = currentParking.PersonName, StarShip = currentParking.StarShip, Price = totalPrice, Spaceport = spaceport };
                 _context.Receipts.Add(receipt);
 
                 await _context.SaveChangesAsync();
@@ -114,22 +111,34 @@ namespace SpacePark_API.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok("You have now paid");
         }
 
-        // POST: api/Parking
+        // POST: api/Parking/register
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("register")]
-        public async Task<ActionResult<Parking>> PostParking(ParkingRequest parkingRequest)
+        public async Task<ActionResult<Parking>> PostParking(ParkingRequest parkingRequest, string spaceTravlerName = "", string starshipName = "")
         {
-            if (DBMethods.EmptySpaces(parkingRequest.SpacePortID))
+            if (await DBMethods.EmptySpaces(parkingRequest.SpacePortID, _context))
             {
-                var acceptableName = await ParkingValidation.ValidateName(parkingRequest.PersonName);
-                var acceptableStarShip = await ParkingValidation.ValidateStarShip(parkingRequest.StarShip);
+                bool acceptableName;
+                bool acceptableStarShip;
+                if (!string.IsNullOrWhiteSpace(spaceTravlerName) && !string.IsNullOrWhiteSpace(starshipName))
+                {
+                    acceptableName = parkingRequest.PersonName == spaceTravlerName;
+                    acceptableStarShip = parkingRequest.StarShip == starshipName;
+
+                }
+                else
+                {
+                    acceptableName = await ParkingValidation.ValidateName(parkingRequest.PersonName);
+                    acceptableStarShip = await ParkingValidation.ValidateStarShip(parkingRequest.StarShip);
+                }
 
                 if (acceptableName && acceptableStarShip)
                 {
-                    var spacePort = _context.SpacePorts.Find(parkingRequest.SpacePortID);
+                    SpacePort spacePort = await  _context.SpacePorts.FindAsync(parkingRequest.SpacePortID);   
+
                     Parking newParking = new() { PersonName = parkingRequest.PersonName, StarShip = parkingRequest.StarShip, ArrivalTime = parkingRequest.ArrivalTime, SpacePort = spacePort };
                     _context.Parking.Add(newParking);
                     await _context.SaveChangesAsync();

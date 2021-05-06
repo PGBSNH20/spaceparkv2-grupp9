@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SpacePark_API.Attribues;
 using SpacePark_API.Models;
 
 namespace SpacePark_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKey]
     public class SpacePortsController : ControllerBase
     {
         public readonly MyContext _context;
@@ -25,6 +27,20 @@ namespace SpacePark_API.Controllers
         public async Task<ActionResult<IEnumerable<SpacePort>>> GetSpacePorts()
         {
             return await _context.SpacePorts.ToListAsync();
+        }
+
+        // GET: api/Parking/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<SpacePort>> GetSpacePort(int id)
+        {
+            var spacePort = await _context.SpacePorts.FindAsync(id);
+
+            if (spacePort == null)
+            {
+                return NotFound();
+            }
+
+            return spacePort;
         }
 
         // PUT: api/SpacePorts/5
@@ -58,9 +74,9 @@ namespace SpacePark_API.Controllers
             return NoContent();
         }
 
-        // POST: api/SpacePorts/new
+        // POST: api/SpacePorts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("new")]
+        [HttpPost]
         public async Task<ActionResult<SpacePort>> PostSpacePort(SpacePort spacePort)
         {
             _context.SpacePorts.Add(spacePort);
