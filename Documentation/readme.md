@@ -43,6 +43,36 @@ PUT Methods:
     Betalar parkering
 
 ```
+## Exempel på begäran
+```
+https://localhost:5001/api/Parking/register
+``` 
+
+## Exempel på svar:
+```
+HTTP/1.1 201 Created
+Connection: close
+Date: Fri, 07 May 2021 10:56:10 GMT
+Content-Type: application/json; charset=utf-8
+Server: Kestrel
+Content-Length: 184
+Location: https://localhost:5001/api/Parking/14
+
+{
+  "id": 14,
+  "personName": "Boba Fett",
+  "starShip": "X-Wing",
+  "arrivalTime": "2021-03-29T13:37:00",
+  "paid": false,
+  "spacePort": {
+    "id": 3,
+    "name": "Pretty Cool SpacePort",
+    "totalCapacity": 5,
+    "parking": []
+  }
+}
+```
+
 
 ## Admin Specifika Endpoints
 ``` 
