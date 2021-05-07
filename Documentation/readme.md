@@ -28,9 +28,15 @@ GET Methods:
 /Parking/{name}/Current
     Skriver ut nuvarande parkering för personen
     
+    Exempel:
+    /Parking/Boba_Fett/Current
+        
+    
 /Parking/{name}/All
     Listar alla parkeringar som personen har gjort
     
+    Exempel:
+    /Parking/R2-D2/All
     
 POST Methods:
 
@@ -41,6 +47,10 @@ PUT Methods:
 
 /Parking/{id}
     Betalar parkering
+    
+    Exempel:
+    /Parking/5
+    
 
 ```
 ## Exempel på begäran
@@ -84,20 +94,30 @@ GET Methods:
 /Parking/{id}
     Får ut en specifik SpacePort
     
+    Exempel:
+    /Parking/3
+    
+    
     
 PUT Methods:
 
 /SpacePorts/{id}
     Uppdaterar vad man vill i SpacePort objektet
     
+    Exempel:
+    /SpacePorts/2
     
 POST Methods:
 
 /SpacePorts
     Skapar en ny SpacePort
     
-/SpacePort/{id}
+/SpacePorts/{id}
     Tar bort en SpacePort
+    
+    Exempel:
+    /SpacePorts/4
+    
 ``` 
 
 
