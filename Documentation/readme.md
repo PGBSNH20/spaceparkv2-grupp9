@@ -1,5 +1,9 @@
 # Documentation
 
+## Introduktion
+
+Välkommen till SpacePark API. Det är ett API för att kunna hantera parkeringar i SpacePark program. 
+
 
 Detta API använder [SWAPI](https://swapi.dev/) för att evalidera att personerna och deras farkoster är ifrån The Star Wars Universe.
 
@@ -57,6 +61,14 @@ PUT Methods:
 ```
 https://localhost:5001/api/Parking/register
 ``` 
+
+Det här är ett exempel på vad som kan skickas med i HTTP request bodyn
+
+    "PersonName": "Boba Fett",
+    "StarShip": "X-Wing",
+    "arrivalTime": "2021-03-29T13:37:00",
+    "SpacePortID": 3
+
 
 ## Exempel på svar:
 ```
