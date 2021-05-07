@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SpacePark_API.Models;
+using SpacePark_API.MIddleware;
 
 namespace SpacePark_API
 {
@@ -48,6 +49,13 @@ namespace SpacePark_API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<ApiKeyMiddleware>();
+
+            app.UseWhen(context => context.Request.Path.StartsWithSegments("/api/spaceports"), appBuilder =>
+            {
+                appBuilder.UseMiddleware<AdminApiKeyMiddelware>();
+            });
 
 
             app.UseEndpoints(endpoints =>

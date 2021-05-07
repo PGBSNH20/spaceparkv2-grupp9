@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SpacePark_API.Attribues;
 using SpacePark_API.Models;
 
 namespace SpacePark_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiKey]
     public class SpacePortsController : ControllerBase
     {
         public readonly MyContext _context;
@@ -23,7 +21,7 @@ namespace SpacePark_API.Controllers
         }
 
         // GET: api/SpacePorts
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<SpacePort>>> GetSpacePorts()
         {
             return await _context.SpacePorts.ToListAsync();

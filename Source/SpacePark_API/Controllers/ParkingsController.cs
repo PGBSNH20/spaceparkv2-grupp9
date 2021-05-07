@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SpacePark_API.Attribues;
 using SpacePark_API.Models;
 using SpacePark_API.Models.APIModels;
 
@@ -13,7 +12,6 @@ namespace SpacePark_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiKey]
     public class ParkingController : ControllerBase
     {
         private readonly MyContext _context;
@@ -23,26 +21,13 @@ namespace SpacePark_API.Controllers
             _context = context;
         }
 
-        // GET: api/Parking
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Parking>>> GetParking()
+        // GET: api/Parking/spaceports
+        [HttpGet("spaceports")]
+        public async Task<ActionResult<IEnumerable<SpacePort>>> GetParkingSpaceports()
         {
-            return await _context.Parking.ToListAsync();
+            return await _context.SpacePorts.ToListAsync();
         }
 
-        // GET: api/Parking/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Parking>> GetParking(int id)
-        {
-            var parking = await _context.Parking.FindAsync(id);
-
-            if (parking == null)
-            {
-                return NotFound();
-            }
-
-            return parking;
-        }
 
         // GET: api/Parking/boba fett/current
         [HttpGet("{name}/current")]

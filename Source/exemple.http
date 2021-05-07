@@ -1,4 +1,9 @@
 GET https://localhost:5001/api/Parking
+apikeyadmin: admin1234
+
+###
+
+GET https://localhost:5001/api/Parking/spaceports
 apikey: secret1234
 
 ###
@@ -53,5 +58,5 @@ content-type: application/json
 
 ###
 
-GET https://localhost:5001/api/SpacePorts
-apikeyadmin: admin1234
+GET https://localhost:5001/api/SpacePorts/all
+ApiKeyadmin: admin1234
