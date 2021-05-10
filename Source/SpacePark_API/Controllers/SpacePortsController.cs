@@ -27,7 +27,7 @@ namespace SpacePark_API.Controllers
             return await _context.SpacePorts.ToListAsync();
         }
 
-        // GET: api/Parking/5
+        // GET: api/Spaceports/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SpacePort>> GetSpacePort(int id)
         {

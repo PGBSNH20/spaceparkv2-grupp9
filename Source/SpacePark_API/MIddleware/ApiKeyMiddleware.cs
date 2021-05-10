@@ -47,6 +47,7 @@ namespace SpacePark_API.MIddleware
                 if (apiKeyAdmin.Equals(extractedAdminApiKey))
                 {
                     await _next(httpContext);
+                    return;
                 }
             }
 
@@ -60,6 +61,7 @@ namespace SpacePark_API.MIddleware
             }
 
             await _next(httpContext);
+            return;
         }
     }
 

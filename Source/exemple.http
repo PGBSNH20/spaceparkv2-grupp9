@@ -1,5 +1,5 @@
 GET https://localhost:5001/api/Parking
-apikeyadmin: admin1234
+apikey: secret1234
 
 ###
 
@@ -31,7 +31,7 @@ content-type: application/json
     "PersonName": "Watto",
     "StarShip": "millennium falcon",
     "arrivalTime": "2021-03-29T13:37:00",
-    "SpacePortID": 3
+    "SpacePortID": 4
 }
 
 ###
@@ -52,7 +52,7 @@ apikeyadmin: admin1234
 content-type: application/json
 
     {
-        "Name": "ESH spaceport",
+        "Name": "Test spaceport",
         "TotalCapacity": 10
     }
 
@@ -60,3 +60,13 @@ content-type: application/json
 
 GET https://localhost:5001/api/SpacePorts/all
 ApiKeyadmin: admin1234
+
+###
+
+DELETE https://localhost:5001/api/SpacePorts/15
+apikeyadmin: admin1234
+content-type: application/json
+
+    {
+        "id": 15
+    }

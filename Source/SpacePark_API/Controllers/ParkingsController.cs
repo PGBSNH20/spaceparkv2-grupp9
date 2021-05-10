@@ -21,6 +21,28 @@ namespace SpacePark_API.Controllers
             _context = context;
         }
 
+
+        // GET: api/Parking
+        [HttpGet()]
+        public async Task<ActionResult<IEnumerable<Parking>>> GetParking()
+        {
+            return await _context.Parking.ToListAsync();
+        }
+
+        // GET: api/Parking/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Parking>> GetParking(int id)
+        {
+            var parking = await _context.Parking.FindAsync(id);
+
+            if (parking == null)
+            {
+                return NotFound();
+            }
+
+            return parking;
+        }
+
         // GET: api/Parking/spaceports
         [HttpGet("spaceports")]
         public async Task<ActionResult<IEnumerable<SpacePort>>> GetParkingSpaceports()
