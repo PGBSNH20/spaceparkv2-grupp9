@@ -1,0 +1,72 @@
+GET https://localhost:5001/api/Parking
+apikey: secret1234
+
+###
+
+GET https://localhost:5001/api/Parking/spaceports
+apikey: secret1234
+
+###
+
+GET https://localhost:5001/api/Parking/5
+apikey: secret1234
+
+###
+
+GET https://localhost:5001/api/Parking/boba_fett/current
+apikey: secret1234
+
+###
+
+GET https://localhost:5001/api/Parking/boba_fett/all
+apikey: secret1234
+
+###
+
+POST https://localhost:5001/api/Parking/register
+apikey: secret1234
+content-type: application/json
+
+{
+    "PersonName": "Watto",
+    "StarShip": "millennium falcon",
+    "arrivalTime": "2021-03-29T13:37:00",
+    "SpacePortID": 4
+}
+
+###
+
+PUT https://localhost:5001/api/Parking/12
+apikey: secret1234
+content-type: application/json
+
+{
+    "id": 12,
+    "SpacePortID": 3
+}
+
+###
+
+POST https://localhost:5001/api/SpacePorts
+apikeyadmin: admin1234
+content-type: application/json
+
+    {
+        "Name": "Test spaceport",
+        "TotalCapacity": 10
+    }
+
+###
+
+GET https://localhost:5001/api/SpacePorts/all
+ApiKeyadmin: admin1234
+
+###
+
+DELETE https://localhost:5001/api/SpacePorts/15
+apikeyadmin: admin1234
+content-type: application/json
+
+    {
+        "id": 15
+    }
